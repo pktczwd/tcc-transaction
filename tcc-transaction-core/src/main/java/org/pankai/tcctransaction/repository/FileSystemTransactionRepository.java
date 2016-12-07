@@ -5,7 +5,6 @@ import org.pankai.tcctransaction.common.TransactionType;
 import org.pankai.tcctransaction.repository.helper.TransactionSerializer;
 import org.pankai.tcctransaction.serializer.JdkSerializationSerializer;
 import org.pankai.tcctransaction.serializer.ObjectSerializer;
-import org.pankai.tcctransaction.support.TransactionIOException;
 
 import javax.transaction.xa.Xid;
 import java.io.File;

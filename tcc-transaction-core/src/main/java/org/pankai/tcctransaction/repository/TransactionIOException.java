@@ -1,4 +1,4 @@
-package org.pankai.tcctransaction.support;
+package org.pankai.tcctransaction.repository;
 
 /**
  * Created by pktczwd on 2016/12/7.

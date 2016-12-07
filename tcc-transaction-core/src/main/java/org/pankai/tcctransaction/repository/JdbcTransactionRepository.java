@@ -3,7 +3,6 @@ package org.pankai.tcctransaction.repository;
 import org.pankai.tcctransaction.Transaction;
 import org.pankai.tcctransaction.serializer.JdkSerializationSerializer;
 import org.pankai.tcctransaction.serializer.ObjectSerializer;
-import org.pankai.tcctransaction.support.TransactionIOException;
 import org.pankai.tcctransaction.utils.CollectionUtils;
 import org.pankai.tcctransaction.utils.StringUtils;
 
