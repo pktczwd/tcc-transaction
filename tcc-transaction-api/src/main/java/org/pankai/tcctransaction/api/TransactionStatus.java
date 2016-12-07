@@ -14,6 +14,10 @@ public enum TransactionStatus {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public static TransactionStatus valueOf(int id) {
         switch (id) {
             case 1:
