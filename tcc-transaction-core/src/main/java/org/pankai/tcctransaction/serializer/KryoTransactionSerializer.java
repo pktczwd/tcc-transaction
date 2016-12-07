@@ -1,6 +1,8 @@
 package org.pankai.tcctransaction.serializer;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import org.pankai.tcctransaction.InvocationContext;
 import org.pankai.tcctransaction.Participant;
 import org.pankai.tcctransaction.Terminator;
@@ -26,5 +28,19 @@ public class KryoTransactionSerializer implements ObjectSerializer<Transaction> 
         kryo.register(Participant.class);
         kryo.register(Terminator.class);
         kryo.register(InvocationContext.class);
+    }
+
+    @Override
+    public byte[] serialize(Transaction transaction) {
+        Output output = new Output(256, -1);
+        kryo.writeObject(output, transaction);
+        return output.toBytes();
+    }
+
+    @Override
+    public Transaction deserialize(byte[] bytes) {
+        Input input = new Input(bytes);
+        Transaction transaction = kryo.readObject(input, Transaction.class);
+        return transaction;
     }
 }
