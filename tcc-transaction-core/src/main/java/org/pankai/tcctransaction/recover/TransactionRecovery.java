@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 事务恢复器.当事务在指定的时间内未有状态变化时,会根据其上下文来决定提交,回滚或者是需要人工干预.
+ * 可以在这里拓展需要人工干预时的通知.
  * Created by pktczwd on 2016/12/7.
  */
 public class TransactionRecovery {
