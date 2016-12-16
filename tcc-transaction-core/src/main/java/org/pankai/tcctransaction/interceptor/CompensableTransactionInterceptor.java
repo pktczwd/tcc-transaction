@@ -27,6 +27,9 @@ public class CompensableTransactionInterceptor {
         this.transactionConfigurator = transactionConfigurator;
     }
 
+    /**
+     * 根据方法中的TransactionContext来确定需要执行的方法.
+     */
     public Object interceptCompensableMethod(ProceedingJoinPoint pjp) throws Throwable {
         TransactionContext transactionContext = CompensableMethodUtils.getTransactionContextFromArgs(pjp.getArgs());
 
@@ -42,6 +45,10 @@ public class CompensableTransactionInterceptor {
         }
     }
 
+    /**
+     * 调用方自动TCC型事务.
+     * 调用方的代码是直接调用.
+     */
     private Object rootMethodProceed(ProceedingJoinPoint pjp) throws Throwable {
         transactionConfigurator.getTransactionManager().begin();
         Object returnValue;
@@ -59,6 +66,10 @@ public class CompensableTransactionInterceptor {
         return returnValue;
     }
 
+    /**
+     * 服务提供方自动TCC型事务.
+     * 服务方的代码TRYING阶段为直接调用,CONFIRMING和CANCELLING阶段为反射调用.
+     */
     private Object providerMethodProceed(ProceedingJoinPoint pjp, TransactionContext transactionContext) throws Throwable {
         switch (TransactionStatus.valueOf(transactionContext.getStatus())) {
             case TRYING:

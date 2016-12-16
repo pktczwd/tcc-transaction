@@ -13,6 +13,7 @@ import org.springframework.core.Ordered;
 @Aspect
 public class TccTransactionContextAspect implements Ordered {
 
+    //根据Ordered的文档显示,值越大而优先级越低,所以此类应该在TccCompensableAspect之后.
     private int order = Ordered.HIGHEST_PRECEDENCE + 1;
 
     private ResourceCoordinatorInterceptor resourceCoordinatorInterceptor;

@@ -25,6 +25,9 @@ public class ResourceCoordinatorInterceptor {
         this.transactionConfigurator = transactionConfigurator;
     }
 
+    /**
+     * 确认事务的参与者
+     */
     public Object interceptTransactionContextMethod(ProceedingJoinPoint pjp) throws Throwable {
         Transaction transaction = transactionConfigurator.getTransactionManager().getCurrentTransaction();
         if (transaction != null && transaction.getStatus().equals(TransactionStatus.TRYING)) {
