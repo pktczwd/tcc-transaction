@@ -29,16 +29,31 @@ public class Product implements Serializable {
         return productId;
     }
 
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
     public long getShopId() {
         return shopId;
+    }
+
+    public void setShopId(long shopId) {
+        this.shopId = shopId;
     }
 
     public String getProductName() {
         return productName;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }
