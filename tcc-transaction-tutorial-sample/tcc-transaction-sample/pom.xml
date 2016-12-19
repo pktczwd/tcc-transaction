@@ -13,10 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>tcc-transaction-capital</module>
-        <module>tcc-transaction-capital-api</module>
         <module>tcc-transaction-order</module>
         <module>tcc-transaction-redpacket</module>
-        <module>tcc-transaction-redpacket-api</module>
     </modules>
 
 </project>
