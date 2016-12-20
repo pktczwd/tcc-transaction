@@ -3,6 +3,8 @@ package org.pankai.tcctransaction.spring;
 import org.pankai.tcctransaction.interceptor.CompensableTransactionInterceptor;
 import org.pankai.tcctransaction.interceptor.ResourceCoordinatorInterceptor;
 import org.pankai.tcctransaction.recover.TransactionRecovery;
+import org.pankai.tcctransaction.spring.aspect.TccCompensableAspect;
+import org.pankai.tcctransaction.spring.aspect.TccTransactionContextAspect;
 import org.pankai.tcctransaction.spring.support.TccTransactionConfigurator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,9 +32,9 @@ public class TccTransactionAutoConfiguration {
     }
 
     @Bean
-    public CompensableTransactionInterceptor compensableTransactionInterceptor(TccTransactionConfigurator transactionConfigurator) {
+    public CompensableTransactionInterceptor compensableTransactionInterceptor() {
         CompensableTransactionInterceptor compensableTransactionInterceptor = new CompensableTransactionInterceptor();
-        compensableTransactionInterceptor.setTransactionConfigurator(transactionConfigurator);
+        compensableTransactionInterceptor.setTransactionConfigurator(tccTransactionConfigurator());
         return compensableTransactionInterceptor;
     }
 
@@ -41,6 +43,20 @@ public class TccTransactionAutoConfiguration {
         ResourceCoordinatorInterceptor resourceCoordinatorInterceptor = new ResourceCoordinatorInterceptor();
         resourceCoordinatorInterceptor.setTransactionConfigurator(tccTransactionConfigurator());
         return resourceCoordinatorInterceptor;
+    }
+
+    @Bean
+    public TccCompensableAspect tccCompensableAspect() {
+        TccCompensableAspect tccCompensableAspect = new TccCompensableAspect();
+        tccCompensableAspect.setCompensableTransactionInterceptor(compensableTransactionInterceptor());
+        return tccCompensableAspect;
+    }
+
+    @Bean
+    public TccTransactionContextAspect tccTransactionContextAspect() {
+        TccTransactionContextAspect tccTransactionContextAspect = new TccTransactionContextAspect();
+        tccTransactionContextAspect.setResourceCoordinatorInterceptor(resourceCoordinatorInterceptor());
+        return tccTransactionContextAspect;
     }
 
 

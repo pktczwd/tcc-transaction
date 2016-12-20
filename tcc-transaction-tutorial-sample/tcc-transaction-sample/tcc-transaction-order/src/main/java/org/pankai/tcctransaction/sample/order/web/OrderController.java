@@ -1,8 +1,8 @@
-package org.pankai.tcctransaction.sample.order.web.controller;
+package org.pankai.tcctransaction.sample.order.web;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.pankai.tcctransaction.sample.order.service.PlaceOrderService;
-import org.pankai.tcctransaction.sample.order.web.controller.request.PlaceOrderRequest;
+import org.pankai.tcctransaction.sample.order.web.request.PlaceOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +45,4 @@ public class OrderController {
         request.getProductQuantities().add(new ImmutablePair<Long, Integer>(productId, 1));
         return request;
     }
-
-
 }

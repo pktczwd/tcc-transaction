@@ -16,7 +16,7 @@ public class OrderRepository {
     private JdbcTemplate jdbcTemplate;
 
     public void createOrder(Order order) {
-        jdbcTemplate.update("insert into ord_order(payer_user_id,payee_user_id,red_packet_pay_amount,capital_pay_amount,status,merchant_order_no) values(?,?,?,?,?,?)", order.getPayerUserId(), order.getPayeeUserId(), order.getRedPacketPayAmount(), order.getCapitalPayAmount(), order.getMerchantOrderNo());
+        jdbcTemplate.update("insert into ord_order(payer_user_id,payee_user_id,red_packet_pay_amount,capital_pay_amount,status,merchant_order_no) values(?,?,?,?,?,?)", order.getPayerUserId(), order.getPayeeUserId(), order.getRedPacketPayAmount(), order.getCapitalPayAmount(), order.getStatus(), order.getMerchantOrderNo());
         for (OrderLine orderLine : order.getOrderLines()) {
             jdbcTemplate.update("insert into ord_order_line(product_id,quantity,unit_price) values(?,?,?)", orderLine.getProductId(), orderLine.getQuantity(), orderLine.getUnitPrice());
         }

@@ -37,4 +37,12 @@ public class TccTransactionContextAspect implements Ordered {
     public int getOrder() {
         return order;
     }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public void setResourceCoordinatorInterceptor(ResourceCoordinatorInterceptor resourceCoordinatorInterceptor) {
+        this.resourceCoordinatorInterceptor = resourceCoordinatorInterceptor;
+    }
 }

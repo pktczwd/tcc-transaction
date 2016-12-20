@@ -9,6 +9,7 @@ import org.pankai.tcctransaction.sample.order.domain.repository.ShopRepository;
 import org.pankai.tcctransaction.sample.order.domain.service.OrderService;
 import org.pankai.tcctransaction.sample.order.domain.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Created by pktczwd on 2016/12/19.
  */
+@Service
 public class PlaceOrderService {
 
     @Autowired

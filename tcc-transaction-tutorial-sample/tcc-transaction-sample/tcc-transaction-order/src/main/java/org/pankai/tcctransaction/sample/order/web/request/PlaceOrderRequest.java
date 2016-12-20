@@ -1,4 +1,4 @@
-package org.pankai.tcctransaction.sample.order.web.controller.request;
+package org.pankai.tcctransaction.sample.order.web.request;
 
 
 import org.apache.commons.lang3.tuple.Pair;

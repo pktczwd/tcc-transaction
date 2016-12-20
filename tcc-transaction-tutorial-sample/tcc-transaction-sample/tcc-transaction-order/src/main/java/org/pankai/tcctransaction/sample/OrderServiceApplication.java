@@ -9,7 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -18,6 +22,9 @@ import javax.sql.DataSource;
  */
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 @EnableTccTransaction
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
+@ComponentScan
 public class OrderServiceApplication {
 
     public static void main(String[] args) {
@@ -61,6 +68,13 @@ public class OrderServiceApplication {
     @Bean
     public JdbcTemplate jdbcTemplate() throws Exception {
         return new JdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() throws Exception {
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+        transactionManager.setDataSource(dataSource());
+        return transactionManager;
     }
 
 }
