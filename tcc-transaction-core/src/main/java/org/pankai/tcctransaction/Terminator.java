@@ -2,6 +2,8 @@ package org.pankai.tcctransaction;
 
 import org.pankai.tcctransaction.support.BeanFactoryAdapter;
 import org.pankai.tcctransaction.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -10,6 +12,8 @@ import java.lang.reflect.Method;
  * Created by pankai on 2016/11/13.
  */
 public class Terminator implements Serializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(Terminator.class);
 
     private InvocationContext confirmInvocationContext;
     private InvocationContext cancelInvocationContext;
@@ -24,10 +28,12 @@ public class Terminator implements Serializable {
     }
 
     public void commit() {
+        logger.info("Transaction participant commit operation.");
         invoke(confirmInvocationContext);
     }
 
     public void rollback() {
+        logger.info("Transaction participant rollback operation.");
         invoke(cancelInvocationContext);
     }
 
@@ -40,9 +46,11 @@ public class Terminator implements Serializable {
                 }
                 Method method = null;
                 method = target.getClass().getMethod(invocationContext.getMethodName(), invocationContext.getParameterTypes());
+                logger.info("Target class is:" + target.getClass().getName());
+                logger.info("Target method is:" + method.getName());
                 return method.invoke(target, invocationContext.getArgs());
             } catch (Exception e) {
-                return new SystemException(e);
+                throw new SystemException(e);
             }
         }
         return null;

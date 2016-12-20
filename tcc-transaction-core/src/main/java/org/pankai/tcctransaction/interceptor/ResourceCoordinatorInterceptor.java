@@ -11,6 +11,8 @@ import org.pankai.tcctransaction.common.MethodType;
 import org.pankai.tcctransaction.support.TransactionConfigurator;
 import org.pankai.tcctransaction.utils.CompensableMethodUtils;
 import org.pankai.tcctransaction.utils.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
@@ -18,6 +20,8 @@ import java.lang.reflect.Method;
  * Created by pktczwd on 2016/12/14.
  */
 public class ResourceCoordinatorInterceptor {
+
+    private static final Logger logger = LoggerFactory.getLogger(ResourceCoordinatorInterceptor.class);
 
     private TransactionConfigurator transactionConfigurator;
 
@@ -30,6 +34,10 @@ public class ResourceCoordinatorInterceptor {
      */
     public Object interceptTransactionContextMethod(ProceedingJoinPoint pjp) throws Throwable {
         Transaction transaction = transactionConfigurator.getTransactionManager().getCurrentTransaction();
+        if (transaction != null) {
+            logger.info("Transaction ID:" + transaction.getXid().toString());
+            logger.info("Transaction status:" + transaction.getStatus().toString());
+        }
         if (transaction != null && transaction.getStatus().equals(TransactionStatus.TRYING)) {
             TransactionContext transactionContext = CompensableMethodUtils.getTransactionContextFromArgs(pjp.getArgs());
             Compensable compensable = getCompensable(pjp);

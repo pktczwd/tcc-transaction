@@ -1,10 +1,11 @@
 package org.pankai.tcctransaction.recover;
 
-import org.apache.log4j.Logger;
 import org.pankai.tcctransaction.Transaction;
 import org.pankai.tcctransaction.TransactionRepository;
 import org.pankai.tcctransaction.api.TransactionStatus;
 import org.pankai.tcctransaction.support.TransactionConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class TransactionRecovery {
 
-    private final Logger logger = Logger.getLogger(Transaction.class.getSimpleName());
+    private final Logger logger = LoggerFactory.getLogger(TransactionRecovery.class);
 
     private TransactionConfigurator transactionConfigurator;
 

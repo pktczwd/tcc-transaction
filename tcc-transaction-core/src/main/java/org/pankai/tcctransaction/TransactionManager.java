@@ -1,17 +1,18 @@
 package org.pankai.tcctransaction;
 
-import org.apache.log4j.Logger;
 import org.pankai.tcctransaction.api.TransactionContext;
 import org.pankai.tcctransaction.api.TransactionStatus;
 import org.pankai.tcctransaction.common.TransactionType;
 import org.pankai.tcctransaction.support.TransactionConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by pktczwd on 2016/12/7.
  */
 public class TransactionManager {
 
-    private final Logger logger = Logger.getLogger(TransactionManager.class);
+    private final Logger logger = LoggerFactory.getLogger(TransactionManager.class);
 
     private TransactionConfigurator transactionConfigurator;
 
@@ -22,6 +23,7 @@ public class TransactionManager {
     private ThreadLocal<Transaction> threadLocalTransaction = new ThreadLocal<Transaction>();
 
     public void begin() {
+        logger.info("transaction begin.");
         Transaction transaction = new Transaction(TransactionType.ROOT);
         TransactionRepository transactionRepository = transactionConfigurator.getTransactionRepository();
         transactionRepository.create(transaction);
@@ -47,6 +49,7 @@ public class TransactionManager {
     }
 
     public void commit() {
+        System.out.println("transaction commit.");
         Transaction transaction = getCurrentTransaction();
         transaction.changeStatus(TransactionStatus.CONFIRMING);
         transactionConfigurator.getTransactionRepository().update(transaction);

@@ -1,6 +1,5 @@
 package org.pankai.tcctransaction.interceptor;
 
-import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.pankai.tcctransaction.NoExistedTransactionException;
@@ -11,6 +10,8 @@ import org.pankai.tcctransaction.common.MethodType;
 import org.pankai.tcctransaction.support.TransactionConfigurator;
 import org.pankai.tcctransaction.utils.CompensableMethodUtils;
 import org.pankai.tcctransaction.utils.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
@@ -19,7 +20,7 @@ import java.lang.reflect.Method;
  */
 public class CompensableTransactionInterceptor {
 
-    private final static Logger logger = Logger.getLogger(CompensableTransactionInterceptor.class.getSimpleName());
+    private final static Logger logger = LoggerFactory.getLogger(CompensableTransactionInterceptor.class);
 
     private TransactionConfigurator transactionConfigurator;
 
@@ -32,9 +33,16 @@ public class CompensableTransactionInterceptor {
      */
     public Object interceptCompensableMethod(ProceedingJoinPoint pjp) throws Throwable {
         TransactionContext transactionContext = CompensableMethodUtils.getTransactionContextFromArgs(pjp.getArgs());
-
+        logger.info("CompensableTransactionInterceptor interceptCompensableMethod method called.");
+        if (transactionContext != null) {
+            logger.info("Transaction ID:" + transactionContext.getXid().toString());
+            logger.info("Transaction status:" + transactionContext.getStatus());
+        } else {
+            logger.info("Transaction Context is null.");
+        }
         MethodType methodType = CompensableMethodUtils.calculateMethodType(transactionContext, true);
-
+        logger.info("Method Type:" + methodType
+        );
         switch (methodType) {
             case ROOT:
                 return rootMethodProceed(pjp);
