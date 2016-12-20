@@ -1,4 +1,4 @@
-package org.pankai.tcctransaction.spring;
+package org.pankai.tcctransaction.spring.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

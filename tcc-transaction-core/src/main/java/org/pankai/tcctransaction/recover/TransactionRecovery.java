@@ -22,7 +22,7 @@ public class TransactionRecovery {
 
     private TransactionConfigurator transactionConfigurator;
 
-    private void setTransactionConfigurator(TransactionConfigurator transactionConfigurator) {
+    public void setTransactionConfigurator(TransactionConfigurator transactionConfigurator) {
         this.transactionConfigurator = transactionConfigurator;
     }
 
