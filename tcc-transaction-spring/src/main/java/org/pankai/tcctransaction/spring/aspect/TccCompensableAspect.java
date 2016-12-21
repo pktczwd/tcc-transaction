@@ -18,6 +18,14 @@ public class TccCompensableAspect implements Ordered {
 
     private CompensableTransactionInterceptor compensableTransactionInterceptor;
 
+    //仅拦截有@Compensable注解的方法
+    //以调用方orderService举例.
+    //orderService在支付的时候分别从capitalService(用户主账户)和redpacketService(用户红包)进行扣款.
+    //==============调用方orderService===============
+    //首先拦截orderService的方法.
+    //确认其事务为调用方(方法参数列表中没有TransactionContext,但是方法上含有@Compensable)
+    //开启事务
+    //==============调用方orderService===============
     @Pointcut("@annotation(org.pankai.tcctransaction.Compensable)")
     public void compensableService() {
 

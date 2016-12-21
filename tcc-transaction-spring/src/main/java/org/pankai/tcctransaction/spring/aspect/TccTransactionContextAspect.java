@@ -22,6 +22,15 @@ public class TccTransactionContextAspect implements Ordered {
     //所有public的,且至少有一个参数,第一个参数是TransactionContext的方法
     //或者
     //有@Compensable注解的方法
+    //==============调用方orderService===============
+    //首先拦截orderService的方法.
+    //确认事务参与方
+    //确认其事务为调用方(方法参数列表中没有TransactionContext,但是方法上含有@Compensable)
+    //==============调用方orderService===============
+
+    //==============orderService调用capitalTradeOrderService===============
+    //orderService调用capitalTradeOrderService,因为capitalTradeOrderService上有@Compensable,所以被拦截.
+    //==============orderService调用redPacketTradeOrderService===============
     @Pointcut("execution(public * *(org.pankai.tcctransaction.api.TransactionContext,..))||@annotation(org.pankai.tcctransaction.Compensable)")
     public void transactionContextCall() {
 

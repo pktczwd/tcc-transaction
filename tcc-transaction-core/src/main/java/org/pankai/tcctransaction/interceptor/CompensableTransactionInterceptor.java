@@ -66,10 +66,11 @@ public class CompensableTransactionInterceptor {
             throw e;//do not rollback, waiting for recovery job
         } catch (Throwable tryingException) {
             logger.warn("Compensable transaction trying failed.", tryingException);
+            //在Trying阶段发生了异常,要求rollback事务.
             transactionConfigurator.getTransactionManager().rollback();
             throw tryingException;
         }
-
+        //在Trying阶段全部正常执行了,则执行commit操作.
         transactionConfigurator.getTransactionManager().commit();
         return returnValue;
     }

@@ -4,6 +4,8 @@ import org.pankai.tcctransaction.api.TransactionContext;
 import org.pankai.tcctransaction.api.TransactionStatus;
 import org.pankai.tcctransaction.api.TransactionXid;
 import org.pankai.tcctransaction.common.TransactionType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.transaction.xa.Xid;
 import java.io.Serializable;
@@ -14,6 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by pankai on 2016/11/13.
  */
 public class Transaction implements Serializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(Transaction.class);
 
     private TransactionXid xid;
     private TransactionStatus status;
@@ -43,6 +47,16 @@ public class Transaction implements Serializable {
     }
 
     public void enlistParticipant(Participant participant) {
+        //logging......start
+        logger.info("Enlist participant.");
+        Terminator terminator = participant.getTerminator();
+        if (terminator != null) {
+            logger.info("Confirm class is:" + terminator.getConfirmInvocationContext().getTargetClass().getName());
+            logger.info("Confirm method is:" + terminator.getConfirmInvocationContext().getMethodName());
+            logger.info("Cancel class is:" + terminator.getCancelInvocationContext().getTargetClass().getName());
+            logger.info("Cancel method is:" + terminator.getCancelInvocationContext().getMethodName());
+        }
+        //logging......end
         participants.add(participant);
     }
 

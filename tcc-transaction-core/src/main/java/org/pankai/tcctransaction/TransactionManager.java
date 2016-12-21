@@ -49,7 +49,6 @@ public class TransactionManager {
     }
 
     public void commit() {
-        System.out.println("transaction commit.");
         Transaction transaction = getCurrentTransaction();
         transaction.changeStatus(TransactionStatus.CONFIRMING);
         transactionConfigurator.getTransactionRepository().update(transaction);

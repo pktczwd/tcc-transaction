@@ -56,4 +56,19 @@ public class Terminator implements Serializable {
         return null;
     }
 
+    public InvocationContext getConfirmInvocationContext() {
+        return confirmInvocationContext;
+    }
+
+    public void setConfirmInvocationContext(InvocationContext confirmInvocationContext) {
+        this.confirmInvocationContext = confirmInvocationContext;
+    }
+
+    public InvocationContext getCancelInvocationContext() {
+        return cancelInvocationContext;
+    }
+
+    public void setCancelInvocationContext(InvocationContext cancelInvocationContext) {
+        this.cancelInvocationContext = cancelInvocationContext;
+    }
 }
