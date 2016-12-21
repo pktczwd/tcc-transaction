@@ -91,6 +91,9 @@ public abstract class CachableTransactionRepository implements TransactionReposi
         this.expireDuration = durationInSeconds;
     }
 
+    /**
+     * 其实现要求将事务内容序列化进数据库.
+     */
     protected abstract int doCreate(Transaction transaction);
 
     protected abstract int doUpdate(Transaction transaction);
