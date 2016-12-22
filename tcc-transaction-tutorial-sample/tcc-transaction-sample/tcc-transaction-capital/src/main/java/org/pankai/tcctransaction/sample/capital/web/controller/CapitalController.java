@@ -6,6 +6,7 @@ import org.pankai.tcctransaction.sample.external.dto.CapitalTradeOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -17,22 +18,9 @@ public class CapitalController {
     @Autowired
     private CapitalTradeOrderService capitalTradeOrderService;
 
-    @RequestMapping("/record")
+    @RequestMapping(value = "/record", method = RequestMethod.POST)
     @ResponseBody
     public String record(TransactionContext transactionContext, CapitalTradeOrderDto tradeOrderDto) {
         return capitalTradeOrderService.record(transactionContext, tradeOrderDto);
     }
-
-    @RequestMapping("/confirmRecord")
-    @ResponseBody
-    public void confirmRecord(TransactionContext transactionContext, CapitalTradeOrderDto tradeOrderDto) {
-        capitalTradeOrderService.confirmRecord(transactionContext, tradeOrderDto);
-    }
-
-    @RequestMapping("/record")
-    @ResponseBody
-    public void cancelRecord(TransactionContext transactionContext, CapitalTradeOrderDto tradeOrderDto) {
-        capitalTradeOrderService.cancelRecord(transactionContext, tradeOrderDto);
-    }
-
 }

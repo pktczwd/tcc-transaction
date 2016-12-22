@@ -87,6 +87,10 @@ public class Order implements Serializable {
         this.merchantOrderNo = merchantOrderNo;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

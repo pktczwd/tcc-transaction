@@ -42,6 +42,10 @@ public class OrderLine implements Serializable {
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

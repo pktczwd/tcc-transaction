@@ -45,6 +45,7 @@ public class PlaceOrderService {
         } catch (Throwable e) {
             //other exceptions throws at TRYING stage.
             //you can retry or cancel the operation.
+            throw new RuntimeException(e);
         }
         return order.getMerchantOrderNo();
     }
