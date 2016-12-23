@@ -156,7 +156,7 @@ public class ResourceCoordinatorInterceptor {
     }
 
     /**
-     * 服务提供方的事务参数者.
+     * 服务提供方的事务参与者.
      */
     private Participant generateAndEnlistProviderParticipant(ProceedingJoinPoint pjp) {
         MethodSignature signature = (MethodSignature) pjp.getSignature();

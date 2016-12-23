@@ -41,8 +41,7 @@ public class CompensableTransactionInterceptor {
             logger.info("Transaction Context is null.");
         }
         MethodType methodType = CompensableMethodUtils.calculateMethodType(transactionContext, true);
-        logger.info("Method Type:" + methodType
-        );
+        logger.info("Method Type:" + methodType);
         switch (methodType) {
             case ROOT:
                 return rootMethodProceed(pjp);
@@ -55,7 +54,6 @@ public class CompensableTransactionInterceptor {
 
     /**
      * 调用方自动TCC型事务.
-     * 调用方的代码是直接调用.
      */
     private Object rootMethodProceed(ProceedingJoinPoint pjp) throws Throwable {
         transactionConfigurator.getTransactionManager().begin();
@@ -77,21 +75,24 @@ public class CompensableTransactionInterceptor {
 
     /**
      * 服务提供方自动TCC型事务.
-     * 服务方的代码TRYING阶段为直接调用,CONFIRMING和CANCELLING阶段为反射调用.
      */
     private Object providerMethodProceed(ProceedingJoinPoint pjp, TransactionContext transactionContext) throws Throwable {
         switch (TransactionStatus.valueOf(transactionContext.getStatus())) {
+            //服务提供方收到trying请求时,开启事务,并且执行trying逻辑.
             case TRYING:
                 transactionConfigurator.getTransactionManager().propagationNewBegin(transactionContext);
                 return pjp.proceed();
+            //服务提供方收到confirming请求时,从本地事务库中读取事务,由事务中保存的信息反射调用confirming逻辑.
             case CONFIRMING:
                 try {
+                    //根据调用方传递来的transactionContext找出本地的分支事务.
                     transactionConfigurator.getTransactionManager().propagationExistBegin(transactionContext);
                     transactionConfigurator.getTransactionManager().commit();
                 } catch (NoExistedTransactionException exception) {
                     //the transaction has been commit, ignore it.
                 }
                 break;
+            //服务提供方收到cancelling请求时,从本地事务库中读取事务,由事务中保存的信息反射调用cancelling逻辑.
             case CANCELLING:
                 try {
                     transactionConfigurator.getTransactionManager().propagationExistBegin(transactionContext);

@@ -10,10 +10,10 @@ public class CompensableMethodUtils {
 
     public static MethodType calculateMethodType(TransactionContext transactionContext, boolean isCompensable) {
         if (transactionContext == null && isCompensable) {
-            //isRootTransactionMethod,理解为TCC服务的调用方,且使用了@Compensable,动态代理实现aop.
+            //isRootTransactionMethod,理解为TCC服务的发起方.在本例中为orderService.
             return MethodType.ROOT;
         } else if (transactionContext == null && !isCompensable) {
-            //isSoaConsumer,理解为TCC服务的调用方,且动态字节码技术实现aop(如指定aspectj-autoproxy的proxy-target-class属性为true).
+            //isSoaConsumer,理解为TCC服务的发起方对提供方的调用.在本例中为orderService调用capitalService和redpacketService两处.
             return MethodType.CONSUMER;
         } else if (transactionContext != null && isCompensable) {
             //isSoaProvider,理解为TCC服务的提供方.
