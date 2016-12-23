@@ -38,6 +38,7 @@ public class CapitalTradeOrderService {
             request.setTransactionContext(transactionContext);
             request.setCapitalTradeOrderDto(tradeOrderDto);
             HttpPost post = new HttpPost("http://127.0.0.1:7001/record");
+            post.addHeader("Content-Type", "application/json");
             StringEntity stringEntity = new StringEntity(objectMapper.writeValueAsString(request));
             post.setEntity(stringEntity);
             CloseableHttpResponse response = closeableHttpClient.execute(post);

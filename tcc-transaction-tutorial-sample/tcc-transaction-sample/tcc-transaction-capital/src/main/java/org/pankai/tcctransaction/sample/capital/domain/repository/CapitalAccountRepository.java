@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by pktczwd on 2016/12/19.
@@ -19,7 +21,7 @@ public class CapitalAccountRepository {
     private JdbcTemplate jdbcTemplate;
 
     public CapitalAccount findByUserId(long userId) {
-        return jdbcTemplate.queryForObject("select * from cap_capital_account where user_id = ?", new RowMapper<CapitalAccount>() {
+        List<CapitalAccount> list = jdbcTemplate.query("select * from cap_capital_account where user_id = ?", new RowMapper<CapitalAccount>() {
             @Override
             public CapitalAccount mapRow(ResultSet rs, int i) throws SQLException {
                 CapitalAccount capitalAccount = new CapitalAccount();
@@ -29,6 +31,11 @@ public class CapitalAccountRepository {
                 return capitalAccount;
             }
         }, userId);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
 
     public void save(CapitalAccount capitalAccount) {

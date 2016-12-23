@@ -33,7 +33,7 @@ public class CapitalAccount {
         this.balanceAmount = this.balanceAmount.subtract(amount);
 
         if (BigDecimal.ZERO.compareTo(this.balanceAmount) > 0) {
-            throw new RuntimeException("not enough balance!");
+            throw new RuntimeException("账户余额不足.");
         }
     }
 
