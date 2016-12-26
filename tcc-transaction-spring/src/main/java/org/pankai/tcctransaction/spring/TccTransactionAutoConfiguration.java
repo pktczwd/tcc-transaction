@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
  * Created by pktczwd on 2016/12/20.
@@ -57,6 +58,11 @@ public class TccTransactionAutoConfiguration {
         TccTransactionContextAspect tccTransactionContextAspect = new TccTransactionContextAspect();
         tccTransactionContextAspect.setResourceCoordinatorInterceptor(resourceCoordinatorInterceptor());
         return tccTransactionContextAspect;
+    }
+
+    @Bean
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        return new ThreadPoolTaskScheduler();
     }
 
 

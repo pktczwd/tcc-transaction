@@ -1,9 +1,13 @@
 package org.pankai.tcctransaction.spring.recover;
 
 import org.pankai.tcctransaction.recover.TransactionRecovery;
+import org.pankai.tcctransaction.spring.support.TccTransactionConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 /**
  * 原文使用quartz驱动.这里重构为使用spring schedule.
@@ -14,14 +18,18 @@ public class RecoverScheduleJob {
 
     @Autowired
     private TransactionRecovery transactionRecovery;
+    @Autowired
+    private TccTransactionConfigurator tccTransactionConfigurator;
+    @Autowired
+    private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
-    /**
-     * 每分钟执行一次
-     */
-    @Scheduled(fixedRate = 60000, initialDelay = 1000)
+    @PostConstruct
     public void init() {
-        transactionRecovery.startRecover();
+        threadPoolTaskScheduler.schedule(new Runnable() {
+            @Override
+            public void run() {
+                transactionRecovery.startRecover();
+            }
+        }, new CronTrigger(tccTransactionConfigurator.getRecoverConfig().getCronExpression()));
     }
-
-
 }
