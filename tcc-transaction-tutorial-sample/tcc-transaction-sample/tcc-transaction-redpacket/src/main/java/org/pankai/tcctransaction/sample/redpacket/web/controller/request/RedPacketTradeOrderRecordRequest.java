@@ -1,10 +1,10 @@
-package org.pankai.tcctransaction.sample.external.service.request;
+package org.pankai.tcctransaction.sample.redpacket.web.controller.request;
 
 import org.pankai.tcctransaction.api.TransactionContext;
 import org.pankai.tcctransaction.sample.external.dto.RedPacketTradeOrderDto;
 
 /**
- * Created by pktczwd on 2016/12/22.
+ * Created by pktczwd on 2016/12/26.
  */
 public class RedPacketTradeOrderRecordRequest {
 

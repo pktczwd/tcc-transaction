@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by pktczwd on 2016/12/19.
@@ -19,7 +21,7 @@ public class RedPacketAccountRepository {
     private JdbcTemplate jdbcTemplate;
 
     public RedPacketAccount findByUserId(long userId) {
-        return jdbcTemplate.queryForObject("select * from red_red_packet_account where user_id = ?", new RowMapper<RedPacketAccount>() {
+        List<RedPacketAccount> list = jdbcTemplate.query("select * from red_red_packet_account where user_id = ?", new RowMapper<RedPacketAccount>() {
             @Override
             public RedPacketAccount mapRow(ResultSet rs, int i) throws SQLException {
                 RedPacketAccount redPacketAccount = new RedPacketAccount();
@@ -29,6 +31,11 @@ public class RedPacketAccountRepository {
                 return redPacketAccount;
             }
         }, userId);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
 
     public void save(RedPacketAccount redPacketAccount) {

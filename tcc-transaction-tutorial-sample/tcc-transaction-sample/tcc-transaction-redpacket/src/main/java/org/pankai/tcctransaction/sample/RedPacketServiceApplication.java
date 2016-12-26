@@ -1,7 +1,6 @@
 package org.pankai.tcctransaction.sample;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.pankai.tcctransaction.recover.RecoverConfig;
 import org.pankai.tcctransaction.spring.EnableTccTransaction;
 import org.pankai.tcctransaction.spring.repository.SpringJdbcTransactionRepository;
 import org.springframework.boot.SpringApplication;
@@ -24,10 +23,10 @@ import javax.sql.DataSource;
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @ComponentScan
-public class CapitalServiceApplication {
+public class RedPacketServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CapitalServiceApplication.class, args);
+        SpringApplication.run(RedPacketServiceApplication.class, args);
     }
 
     @Bean
@@ -44,8 +43,8 @@ public class CapitalServiceApplication {
     public SpringJdbcTransactionRepository springJdbcTransactionRepository() throws Exception {
         SpringJdbcTransactionRepository springJdbcTransactionRepository = new SpringJdbcTransactionRepository();
         springJdbcTransactionRepository.setDataSource(tccDataSource());
-        springJdbcTransactionRepository.setDomain("capital");
-        springJdbcTransactionRepository.setTbSuffix("_cap");
+        springJdbcTransactionRepository.setDomain("redpacket");
+        springJdbcTransactionRepository.setTbSuffix("_red");
         return springJdbcTransactionRepository;
     }
 
@@ -53,7 +52,7 @@ public class CapitalServiceApplication {
     public DataSource dataSource() throws Exception {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setDriverClass("com.mysql.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/TCC_CAP?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false");
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/TCC_RED?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false");
         dataSource.setUser("root");
         dataSource.setPassword("admin");
         return dataSource;
