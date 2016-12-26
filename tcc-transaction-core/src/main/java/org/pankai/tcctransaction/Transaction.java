@@ -48,13 +48,13 @@ public class Transaction implements Serializable {
 
     public void enlistParticipant(Participant participant) {
         //logging......start
-        logger.info("Enlist participant.");
+        logger.debug("Enlist participant.");
         Terminator terminator = participant.getTerminator();
         if (terminator != null) {
-            logger.info("Confirm class is:" + terminator.getConfirmInvocationContext().getTargetClass().getName());
-            logger.info("Confirm method is:" + terminator.getConfirmInvocationContext().getMethodName());
-            logger.info("Cancel class is:" + terminator.getCancelInvocationContext().getTargetClass().getName());
-            logger.info("Cancel method is:" + terminator.getCancelInvocationContext().getMethodName());
+            logger.debug("Confirm class is:" + terminator.getConfirmInvocationContext().getTargetClass().getName());
+            logger.debug("Confirm method is:" + terminator.getConfirmInvocationContext().getMethodName());
+            logger.debug("Cancel class is:" + terminator.getCancelInvocationContext().getTargetClass().getName());
+            logger.debug("Cancel method is:" + terminator.getCancelInvocationContext().getMethodName());
         }
         //logging......end
         participants.add(participant);

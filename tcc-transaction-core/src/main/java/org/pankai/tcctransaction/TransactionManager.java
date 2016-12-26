@@ -23,7 +23,7 @@ public class TransactionManager {
     private ThreadLocal<Transaction> threadLocalTransaction = new ThreadLocal<Transaction>();
 
     public void begin() {
-        logger.info("transaction begin.");
+        logger.debug("transaction begin.");
         Transaction transaction = new Transaction(TransactionType.ROOT);
         TransactionRepository transactionRepository = transactionConfigurator.getTransactionRepository();
         transactionRepository.create(transaction);

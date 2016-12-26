@@ -28,12 +28,12 @@ public class Terminator implements Serializable {
     }
 
     public void commit() {
-        logger.info("Transaction participant commit operation.");
+        logger.debug("Transaction participant commit operation.");
         invoke(confirmInvocationContext);
     }
 
     public void rollback() {
-        logger.info("Transaction participant rollback operation.");
+        logger.debug("Transaction participant rollback operation.");
         invoke(cancelInvocationContext);
     }
 
@@ -46,8 +46,8 @@ public class Terminator implements Serializable {
                 }
                 Method method = null;
                 method = target.getClass().getMethod(invocationContext.getMethodName(), invocationContext.getParameterTypes());
-                logger.info("Target class is:" + target.getClass().getName());
-                logger.info("Target method is:" + method.getName());
+                logger.debug("Target class is:" + target.getClass().getName());
+                logger.debug("Target method is:" + method.getName());
                 return method.invoke(target, invocationContext.getArgs());
             } catch (Exception e) {
                 throw new SystemException(e);

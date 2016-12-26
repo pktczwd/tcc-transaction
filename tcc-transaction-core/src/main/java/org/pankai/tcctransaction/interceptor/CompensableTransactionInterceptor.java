@@ -33,15 +33,15 @@ public class CompensableTransactionInterceptor {
      */
     public Object interceptCompensableMethod(ProceedingJoinPoint pjp) throws Throwable {
         TransactionContext transactionContext = CompensableMethodUtils.getTransactionContextFromArgs(pjp.getArgs());
-        logger.info("CompensableTransactionInterceptor interceptCompensableMethod method called.");
+        logger.debug("CompensableTransactionInterceptor interceptCompensableMethod method called.");
         if (transactionContext != null) {
-            logger.info("Transaction ID:" + transactionContext.getXid().toString());
-            logger.info("Transaction status:" + transactionContext.getStatus());
+            logger.debug("Transaction ID:" + transactionContext.getXid().toString());
+            logger.debug("Transaction status:" + transactionContext.getStatus());
         } else {
-            logger.info("Transaction Context is null.");
+            logger.debug("Transaction Context is null.");
         }
         MethodType methodType = CompensableMethodUtils.calculateMethodType(transactionContext, true);
-        logger.info("Method Type:" + methodType);
+        logger.debug("Method Type:" + methodType);
         switch (methodType) {
             case ROOT:
                 return rootMethodProceed(pjp);

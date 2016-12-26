@@ -28,9 +28,9 @@ public class TransactionRecovery {
     }
 
     public void startRecover() {
-        logger.info("TransactionRecovery startRecover.................................");
+        logger.debug("TransactionRecovery startRecover.................................");
         List<Transaction> transactions = loadErrorTransactions();
-        logger.info("Found " + transactions.size() + " error transactions, will try to recover.");
+        logger.debug("Found " + transactions.size() + " error transactions, will try to recover.");
         recoverTransactions(transactions);
     }
 

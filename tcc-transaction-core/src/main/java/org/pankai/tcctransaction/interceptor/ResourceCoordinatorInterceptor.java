@@ -33,19 +33,19 @@ public class ResourceCoordinatorInterceptor {
      * 确认事务的参与者
      */
     public Object interceptTransactionContextMethod(ProceedingJoinPoint pjp) throws Throwable {
-        logger.info("ResourceCoordinatorInterceptor interceptTransactionContextMethod method called.");
+        logger.debug("ResourceCoordinatorInterceptor interceptTransactionContextMethod method called.");
         Transaction transaction = transactionConfigurator.getTransactionManager().getCurrentTransaction();
         if (transaction != null) {
-            logger.info("Transaction ID:" + transaction.getXid().toString());
-            logger.info("Transaction status:" + transaction.getStatus().toString());
+            logger.debug("Transaction ID:" + transaction.getXid().toString());
+            logger.debug("Transaction status:" + transaction.getStatus().toString());
         } else {
-            logger.info("Transaction is null.");
+            logger.debug("Transaction is null.");
         }
         if (transaction != null && transaction.getStatus().equals(TransactionStatus.TRYING)) {
             TransactionContext transactionContext = CompensableMethodUtils.getTransactionContextFromArgs(pjp.getArgs());
             Compensable compensable = getCompensable(pjp);
             MethodType methodType = CompensableMethodUtils.calculateMethodType(transactionContext, compensable != null ? true : false);
-            logger.info("Method Type:" + methodType);
+            logger.debug("Method Type:" + methodType);
             switch (methodType) {
                 //==============调用方orderService===============
                 //事务已经由CompensableTransactionInterceptor打开.
