@@ -6,7 +6,7 @@
 - 添加了对实现原理的注释.
 - 事务恢复器移除了对quartz的依赖,改写为spring schedule驱动.
 - 提升spring版本到4.
-- 日志由log4j切换为slf4j.
+- 日志由log4j切换为logback.
 - 将xml方式配置改写为了java code方式.
 - 使用方式发生了变化.在配置类上加入@EnableTccTransaction来启用tcc-transaction.
 - dubbo示例改写为restful示例.
