@@ -15,7 +15,7 @@
     </modules>
 
     <properties>
-        <springframework.version>4.3.4.RELEASE</springframework.version>
+        <springframework.version>6.0.0</springframework.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.source>1.8</project.build.source>
         <project.build.target>1.8</project.build.target>
